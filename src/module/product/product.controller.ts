@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Request, Response } from 'express';
 import { productService } from './product.service';
 
@@ -11,11 +12,13 @@ const createProduct = async (req: Request, res: Response) => {
       message: 'Product created successfully',
       result,
     });
-  } catch (error) {
-    res.status(500).json({
+  } catch (error: any) {
+    const statusCode = error.status || 500;
+    res.status(statusCode).json({
+      message: error.message || 'Internal Server Error',
       success: false,
-      message: 'Something went wrong',
       error,
+      stack: error.stack,
     });
   }
 };
@@ -29,11 +32,13 @@ const getProducts = async (req: Request, res: Response) => {
       message: 'Products get successfully',
       result,
     });
-  } catch (error) {
-    res.status(500).json({
+  } catch (error: any) {
+    const statusCode = error.status || 500;
+    res.status(statusCode).json({
+      message: error.message || 'Internal Server Error',
       success: false,
-      message: 'Something went wrong',
       error,
+      stack: error.stack,
     });
   }
 };
@@ -48,11 +53,13 @@ const getSingleProduct = async (req: Request, res: Response) => {
       message: 'Product get successfully',
       result,
     });
-  } catch (error) {
-    res.status(500).json({
+  } catch (error: any) {
+    const statusCode = error.status || 500;
+    res.status(statusCode).json({
+      message: error.message || 'Internal Server Error',
       success: false,
-      message: 'Something went wrong',
       error,
+      stack: error.stack,
     });
   }
 };
@@ -68,11 +75,13 @@ const updateProduct = async (req: Request, res: Response) => {
       message: 'Product updated successfully',
       result,
     });
-  } catch (error) {
-    res.status(500).json({
+  } catch (error: any) {
+    const statusCode = error.status || 500;
+    res.status(statusCode).json({
+      message: error.message || 'Internal Server Error',
       success: false,
-      message: 'Something went wrong',
       error,
+      stack: error.stack,
     });
   }
 };
@@ -86,11 +95,13 @@ const deleteProduct = async (req: Request, res: Response) => {
       message: 'Product deleted successfully',
       result,
     });
-  } catch (error) {
-    res.status(500).json({
+  } catch (error: any) {
+    const statusCode = error.status || 500;
+    res.status(statusCode).json({
+      message: error.message || 'Internal Server Error',
       success: false,
-      message: 'Something went wrong',
       error,
+      stack: error.stack,
     });
   }
 };

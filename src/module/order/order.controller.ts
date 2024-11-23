@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Request, Response } from 'express';
 import { orderService } from './order.service';
 
@@ -11,11 +12,13 @@ const createOrder = async (req: Request, res: Response) => {
       message: 'Order created successfully',
       result,
     });
-  } catch (error) {
-    res.status(500).json({
+  } catch (error: any) {
+    const statusCode = error.status || 500;
+    res.status(statusCode).json({
+      message: error.message || 'Internal Server Error',
       success: false,
-      message: 'Something went wrong',
       error,
+      stack: error.stack,
     });
   }
 };
@@ -29,11 +32,13 @@ const getOrders = async (req: Request, res: Response) => {
       message: 'Orders get successfully',
       result,
     });
-  } catch (error) {
-    res.status(500).json({
+  } catch (error: any) {
+    const statusCode = error.status || 500;
+    res.status(statusCode).json({
+      message: error.message || 'Internal Server Error',
       success: false,
-      message: 'Something went wrong',
       error,
+      stack: error.stack,
     });
   }
 };
@@ -48,11 +53,13 @@ const getSingleOrder = async (req: Request, res: Response) => {
       message: 'Order get successfully',
       result,
     });
-  } catch (error) {
-    res.status(500).json({
+  } catch (error: any) {
+    const statusCode = error.status || 500;
+    res.status(statusCode).json({
+      message: error.message || 'Internal Server Error',
       success: false,
-      message: 'Something went wrong',
       error,
+      stack: error.stack,
     });
   }
 };
@@ -68,11 +75,13 @@ const updateOrder = async (req: Request, res: Response) => {
       message: 'Order updated successfully',
       result,
     });
-  } catch (error) {
-    res.status(500).json({
+  } catch (error: any) {
+    const statusCode = error.status || 500;
+    res.status(statusCode).json({
+      message: error.message || 'Internal Server Error',
       success: false,
-      message: 'Something went wrong',
       error,
+      stack: error.stack,
     });
   }
 };
@@ -86,11 +95,13 @@ const deleteOrder = async (req: Request, res: Response) => {
       message: 'Order deleted successfully',
       result,
     });
-  } catch (error) {
-    res.status(500).json({
+  } catch (error: any) {
+    const statusCode = error.status || 500;
+    res.status(statusCode).json({
+      message: error.message || 'Internal Server Error',
       success: false,
-      message: 'Something went wrong',
       error,
+      stack: error.stack,
     });
   }
 };
@@ -104,11 +115,13 @@ const getRevenue = async (req: Request, res: Response) => {
       message: 'Revenue get successfully',
       result,
     });
-  } catch (error) {
-    res.status(500).json({
+  } catch (error: any) {
+    const statusCode = error.status || 500;
+    res.status(statusCode).json({
+      message: error.message || 'Internal Server Error',
       success: false,
-      message: 'Something went wrong',
       error,
+      stack: error.stack,
     });
   }
 };
