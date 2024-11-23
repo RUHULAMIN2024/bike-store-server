@@ -26,11 +26,7 @@ This is a RESTful API for managing a bike store. It allows you to manage product
 - Clone the Repository: "git clone https://github.com/RUHULAMIN2024/A-2.git"
 - Install Dependencies: "npm install"
 - Set Up Environment Variables:
-
-- Create a .env file and add:
-  1.NODE_ENV=development
-  2.PORT=5000
-  3.DATABASE_URL=
+- Create a .env file and add: "NODE_ENV=development", "PORT=5000", "DATABASE_URL=''"
 - Start the Server: "npm run dev"
 
 ## API Endpoints
