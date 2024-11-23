@@ -18,15 +18,20 @@ app.use((req: Request, res: Response, next: NextFunction) => {
     message: 'Resource not found',
   });
 });
-// app.use((err: any, req: Request, res: Response, next: NextFunction) => {
-//   const statusCode = err.status || 500;
-//   console.log(statusCode);
-//   res.status(statusCode).json({
-//     success: false,
-//     message: err.message || 'Internal Server Error',
-//     stack: config.node_env === 'production' ? null : err.stack,
-//   });
-// });
+
+export interface CustomError extends Error {
+  status?: number;
+}
+// eslint-disable-next-line no-unused-vars, @typescript-eslint/no-unused-vars
+app.use((err: CustomError, req: Request, res: Response, next: NextFunction) => {
+  const statusCode = err.status || 500;
+  console.log(statusCode);
+  res.status(statusCode).json({
+    success: false,
+    message: err.message || 'Internal Server Error',
+    stack: err.stack,
+  });
+});
 
 app.get('/', (req: Request, res: Response) => {
   res.send('Hello World!');

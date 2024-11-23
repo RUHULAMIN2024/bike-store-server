@@ -1,7 +1,27 @@
+import Product from '../product/product.model';
 import { IOrder } from './order.interface';
 import Order from './order.model';
 
 const createOrder = async (data: IOrder) => {
+  const { product, quantity } = data;
+  const existingProduct = await Product.findById(product);
+
+  if (!existingProduct) {
+    throw new Error('Product not found');
+  }
+
+  if (existingProduct.quantity < quantity) {
+    throw new Error(
+      `Insufficient stock. Only ${existingProduct.quantity} left in stock.`,
+    );
+  }
+
+  existingProduct.quantity -= quantity;
+  if (existingProduct.quantity === 0) {
+    existingProduct.inStock = false;
+  }
+  await existingProduct.save();
+
   const result = await Order.create(data);
   return result;
 };
