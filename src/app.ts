@@ -18,8 +18,8 @@ app.use(
   (error: CustomError, req: Request, res: Response, next: NextFunction) => {
     const statusCode = error.status || 500;
     res.status(statusCode).json({
-      message: error.message || 'Internal Server Error',
       success: false,
+      message: error.message || 'Internal Server Error',
       error,
       stack: error.stack,
     });

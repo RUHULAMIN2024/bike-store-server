@@ -6,8 +6,8 @@ const createProduct = async (data: IProduct) => {
   return result;
 };
 
-const getProducts = async () => {
-  const result = await Product.find();
+const getProducts = async (filter: object = {}) => {
+  const result = await Product.find(filter);
   return result;
 };
 

@@ -10,13 +10,13 @@ const createOrder = async (req: Request, res: Response) => {
     res.status(200).json({
       success: true,
       message: 'Order created successfully',
-      result,
+      data: result,
     });
   } catch (error: any) {
     const statusCode = error.status || 500;
     res.status(statusCode).json({
-      message: error.message || 'Internal Server Error',
       success: false,
+      message: error.message || 'Internal Server Error',
       error,
       stack: error.stack,
     });
@@ -30,13 +30,13 @@ const getOrders = async (req: Request, res: Response) => {
     res.status(200).json({
       success: true,
       message: 'Orders get successfully',
-      result,
+      data: result,
     });
   } catch (error: any) {
     const statusCode = error.status || 500;
     res.status(statusCode).json({
-      message: error.message || 'Internal Server Error',
       success: false,
+      message: error.message || 'Internal Server Error',
       error,
       stack: error.stack,
     });
@@ -51,13 +51,13 @@ const getSingleOrder = async (req: Request, res: Response) => {
     res.status(200).json({
       success: true,
       message: 'Order get successfully',
-      result,
+      data: result,
     });
   } catch (error: any) {
     const statusCode = error.status || 500;
     res.status(statusCode).json({
-      message: error.message || 'Internal Server Error',
       success: false,
+      message: error.message || 'Internal Server Error',
       error,
       stack: error.stack,
     });
@@ -73,13 +73,13 @@ const updateOrder = async (req: Request, res: Response) => {
     res.status(200).json({
       success: true,
       message: 'Order updated successfully',
-      result,
+      data: result,
     });
   } catch (error: any) {
     const statusCode = error.status || 500;
     res.status(statusCode).json({
-      message: error.message || 'Internal Server Error',
       success: false,
+      message: error.message || 'Internal Server Error',
       error,
       stack: error.stack,
     });
@@ -93,13 +93,13 @@ const deleteOrder = async (req: Request, res: Response) => {
     res.status(200).json({
       success: true,
       message: 'Order deleted successfully',
-      result,
+      data: result,
     });
   } catch (error: any) {
     const statusCode = error.status || 500;
     res.status(statusCode).json({
-      message: error.message || 'Internal Server Error',
       success: false,
+      message: error.message || 'Internal Server Error',
       error,
       stack: error.stack,
     });
@@ -113,13 +113,13 @@ const getRevenue = async (req: Request, res: Response) => {
     res.status(200).json({
       success: true,
       message: 'Revenue get successfully',
-      result,
+      data: result,
     });
   } catch (error: any) {
     const statusCode = error.status || 500;
     res.status(statusCode).json({
-      message: error.message || 'Internal Server Error',
       success: false,
+      message: error.message || 'Internal Server Error',
       error,
       stack: error.stack,
     });
