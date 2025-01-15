@@ -1,110 +1,69 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Request, Response } from 'express';
 import { orderService } from './order.service';
+import catchAsync from '../../utils/catchAsync';
+import sendResponse from '../../utils/sendResponse';
+import { StatusCodes } from 'http-status-codes';
 
-const createOrder = async (req: Request, res: Response) => {
-  try {
-    const data = req.body;
-    const result = await orderService.createOrder(data);
+const createOrder = catchAsync(async (req, res) => {
+  const data = req.body;
+  const result = await orderService.createOrder(data);
 
-    res.status(200).json({
-      success: true,
-      message: 'Order created successfully',
-      data: result,
-    });
-  } catch (error: any) {
-    const statusCode = error.status || 500;
-    res.status(statusCode).json({
-      success: false,
-      message: error.message || 'Internal Server Error',
-      error,
-      stack: error.stack,
-    });
-  }
-};
+  sendResponse(res, {
+    statusCode: StatusCodes.CREATED,
+    success: true,
+    message: 'Order  created successfully',
+    data: result,
+  });
+});
 
-const getOrders = async (req: Request, res: Response) => {
-  try {
-    const result = await orderService.getOrders();
+const getOrders = catchAsync(async (req, res) => {
+  const result = await orderService.getOrders();
 
-    res.status(200).json({
-      success: true,
-      message: 'Orders get successfully',
-      data: result,
-    });
-  } catch (error: any) {
-    const statusCode = error.status || 500;
-    res.status(statusCode).json({
-      success: false,
-      message: error.message || 'Internal Server Error',
-      error,
-      stack: error.stack,
-    });
-  }
-};
+  sendResponse(res, {
+    statusCode: StatusCodes.OK,
+    success: true,
+    message: 'Order  retrived successfully',
+    data: result,
+  });
+});
 
-const getSingleOrder = async (req: Request, res: Response) => {
-  try {
-    const id = req.params.orderId;
-    const result = await orderService.getSingleOrder(id);
+const getSingleOrder = catchAsync(async (req, res) => {
+  const id = req.params.orderId;
+  const result = await orderService.getSingleOrder(id);
 
-    res.status(200).json({
-      success: true,
-      message: 'Order get successfully',
-      data: result,
-    });
-  } catch (error: any) {
-    const statusCode = error.status || 500;
-    res.status(statusCode).json({
-      success: false,
-      message: error.message || 'Internal Server Error',
-      error,
-      stack: error.stack,
-    });
-  }
-};
+  sendResponse(res, {
+    statusCode: StatusCodes.OK,
+    success: true,
+    message: 'Order  retrived successfully',
+    data: result,
+  });
+});
 
-const updateOrder = async (req: Request, res: Response) => {
-  try {
-    const id = req.params.orderId;
-    const body = req.body;
-    const result = await orderService.updateOrder(id, body);
+const updateOrder = catchAsync(async (req, res) => {
+  const id = req.params.orderId;
+  const body = req.body;
+  const result = await orderService.updateOrder(id, body);
 
-    res.status(200).json({
-      success: true,
-      message: 'Order updated successfully',
-      data: result,
-    });
-  } catch (error: any) {
-    const statusCode = error.status || 500;
-    res.status(statusCode).json({
-      success: false,
-      message: error.message || 'Internal Server Error',
-      error,
-      stack: error.stack,
-    });
-  }
-};
-const deleteOrder = async (req: Request, res: Response) => {
-  try {
-    const id = req.params.id;
-    const result = await orderService.deleteOrder(id);
+  sendResponse(res, {
+    statusCode: StatusCodes.OK,
+    success: true,
+    message: 'Order  updated successfully',
+    data: result,
+  });
+});
 
-    res.status(200).json({
-      success: true,
-      message: 'Order deleted successfully',
-      data: result,
-    });
-  } catch (error: any) {
-    const statusCode = error.status || 500;
-    res.status(statusCode).json({
-      success: false,
-      message: error.message || 'Internal Server Error',
-      error,
-      stack: error.stack,
-    });
-  }
-};
+const deleteOrder = catchAsync(async (req, res) => {
+  const id = req.params.id;
+  const result = await orderService.deleteOrder(id);
+
+  sendResponse(res, {
+    statusCode: StatusCodes.OK,
+    success: true,
+    message: 'Order  deleted successfully',
+    data: result,
+  });
+});
 
 const getRevenue = async (req: Request, res: Response) => {
   try {
