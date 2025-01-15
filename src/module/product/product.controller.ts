@@ -67,12 +67,12 @@ const getSingleProduct = async (req: Request, res: Response) => {
   try {
     const id = req.params.productId;
     const result = await productService.getSingleProduct(id);
-    if (!result) {
-      res.status(404).json({
-        success: false,
-        message: 'product not found',
-      });
-    }
+    // if (!result) {
+    //   res.status(404).json({
+    //     success: false,
+    //     message: 'product not found',
+    //   });
+    // }
     res.status(200).json({
       success: true,
       message: 'Product get successfully',
