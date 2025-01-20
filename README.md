@@ -21,12 +21,56 @@ This is a RESTful API for managing a bike store. It allows you to manage product
 
 - Calculate total revenue from all orders.
 
-## Setup Instructions
+### Error Handling
 
-- Clone the Repository: "git clone https://github.com/RUHULAMIN2024/A-2.git"
-- Install Dependencies: "npm install"
-- Set Up Environment Variables: "Create a .env file and add: 'NODE_ENV=development', 'PORT=5000', 'DATABASE_URL=.....' "
-- Start the Server: "npm run dev"
+- Consistent error responses across APIs:
+  - Validation Errors
+  - Authentication Errors
+  - Authorization Errors
+  - Not Found Errors
+
+## Technologies Used
+
+- **TypeScript**
+- **Node.js**
+- **Express.js**
+- **MongoDB with Mongoose**
+
+---
+
+## Installation and Setup
+
+### Prerequisites
+
+- Node.js (v14 or higher)
+- MongoDB
+
+### Steps
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/RUHULAMIN2024/bike-store-server
+   cd Assignment-3
+   ```
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
+3. Create a `.env` file in the root directory and add the following variables:
+
+   ```env
+
+   NODE_ENV=development
+   PORT=5000
+   DATABASE_URL= <mongodb_url>
+   ```
+
+4. Start the server:
+   ```bash
+   npm run dev
+   ```
+
+---
 
 ## API Endpoints
 
