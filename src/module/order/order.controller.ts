@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-import { Request, Response } from 'express';
 import { orderService } from './order.service';
 import catchAsync from '../../utils/catchAsync';
 import sendResponse from '../../utils/sendResponse';
@@ -65,25 +63,16 @@ const deleteOrder = catchAsync(async (req, res) => {
   });
 });
 
-const getRevenue = async (req: Request, res: Response) => {
-  try {
-    const result = await orderService.getRevenue();
+const getRevenue = catchAsync(async (req, res) => {
+  const result = await orderService.getRevenue();
 
-    res.status(200).json({
-      success: true,
-      message: 'Revenue get successfully',
-      data: result,
-    });
-  } catch (error: any) {
-    const statusCode = error.status || 500;
-    res.status(statusCode).json({
-      success: false,
-      message: error.message || 'Internal Server Error',
-      error,
-      stack: error.stack,
-    });
-  }
-};
+  sendResponse(res, {
+    statusCode: StatusCodes.OK,
+    success: true,
+    message: 'Revenue get successfully',
+    data: result,
+  });
+});
 
 export const orderController = {
   createOrder,

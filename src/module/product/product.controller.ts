@@ -1,150 +1,67 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-import { Request, Response } from 'express';
+import { StatusCodes } from 'http-status-codes';
+import catchAsync from '../../utils/catchAsync';
+import sendResponse from '../../utils/sendResponse';
 import { productService } from './product.service';
 
-const createProduct = async (req: Request, res: Response) => {
-  try {
-    const data = req.body;
-    const result = await productService.createProduct(data);
+const createProduct = catchAsync(async (req, res) => {
+  const data = req.body;
+  const result = await productService.createProduct(data);
 
-    res.status(200).json({
-      success: true,
-      message: 'Product created successfully',
-      data: result,
-    });
-  } catch (error: any) {
-    const statusCode = error.status || 500;
-    res.status(statusCode).json({
-      success: false,
-      message: error.message || 'Internal Server Error',
-      error,
-      stack: error.stack,
-    });
-  }
-};
+  sendResponse(res, {
+    statusCode: StatusCodes.CREATED,
+    success: true,
+    message: 'Product  created successfully',
+    data: result,
+  });
+});
 
-// get all product with filter
-const getProducts = async (req: Request, res: Response) => {
-  try {
-    const { searchTerm } = req.query;
-    const filter: any = {};
+const getProducts = catchAsync(async (req, res) => {
+  const result = await productService.getProducts();
 
-    if (searchTerm) {
-      filter.$or = [
-        { name: { $regex: searchTerm, $options: 'i' } },
-        { brand: { $regex: searchTerm, $options: 'i' } },
-        { category: { $regex: searchTerm, $options: 'i' } },
-      ];
-    }
+  sendResponse(res, {
+    statusCode: StatusCodes.OK,
+    success: true,
+    message: 'Product  retrived successfully',
+    data: result,
+  });
+});
 
-    const result = await productService.getProducts(filter);
+const getSingleProduct = catchAsync(async (req, res) => {
+  const id = req.params.ProductId;
+  const result = await productService.getSingleProduct(id);
 
-    if (result.length == 0) {
-      res.status(404).json({
-        success: false,
-        message: 'Product not found',
-      });
-    }
+  sendResponse(res, {
+    statusCode: StatusCodes.OK,
+    success: true,
+    message: 'Product  retrived successfully',
+    data: result,
+  });
+});
 
-    res.status(200).json({
-      success: true,
-      message: 'Bikes retrieved successfully',
-      data: result,
-    });
-  } catch (error: any) {
-    const statusCode = error.status || 500;
-    res.status(statusCode).json({
-      success: false,
-      message: error.message || 'Internal Server Error',
-      error,
-      stack: error.stack,
-    });
-  }
-};
+const updateProduct = catchAsync(async (req, res) => {
+  const id = req.params.ProductId;
+  const body = req.body;
+  const result = await productService.updateProduct(id, body);
 
-// get single product by id
-const getSingleProduct = async (req: Request, res: Response) => {
-  try {
-    const id = req.params.productId;
-    const result = await productService.getSingleProduct(id);
-    // if (!result) {
-    //   res.status(404).json({
-    //     success: false,
-    //     message: 'product not found',
-    //   });
-    // }
-    res.status(200).json({
-      success: true,
-      message: 'Product get successfully',
-      data: result,
-    });
-  } catch (error: any) {
-    const statusCode = error.status || 500;
-    res.status(statusCode).json({
-      success: false,
-      message: error.message || 'Internal Server Error',
-      error,
-      stack: error.stack,
-    });
-  }
-};
+  sendResponse(res, {
+    statusCode: StatusCodes.OK,
+    success: true,
+    message: 'Product  updated successfully',
+    data: result,
+  });
+});
 
-// update product by id
+const deleteProduct = catchAsync(async (req, res) => {
+  const id = req.params.id;
+  const result = await productService.deleteProduct(id);
 
-const updateProduct = async (req: Request, res: Response) => {
-  try {
-    const id = req.params.productId;
-    const body = req.body;
-    const result = await productService.updateProduct(id, body);
-    if (!result) {
-      res.status(404).json({
-        success: false,
-        message: 'product not found',
-      });
-    }
-    res.status(200).json({
-      success: true,
-      message: 'Product updated successfully',
-      data: result,
-    });
-  } catch (error: any) {
-    const statusCode = error.status || 500;
-    res.status(statusCode).json({
-      success: false,
-      message: error.message || 'Internal Server Error',
-      error,
-      stack: error.stack,
-    });
-  }
-};
-
-// delete single product by id
-
-const deleteProduct = async (req: Request, res: Response) => {
-  try {
-    const id = req.params.id;
-    const result = await productService.deleteProduct(id);
-    if (!result) {
-      res.status(404).json({
-        success: false,
-        message: 'product not found',
-      });
-    }
-    res.status(200).json({
-      success: true,
-      message: 'Product deleted successfully',
-      data: result,
-    });
-  } catch (error: any) {
-    const statusCode = error.status || 500;
-    res.status(statusCode).json({
-      success: false,
-      message: error.message || 'Internal Server Error',
-      error,
-      stack: error.stack,
-    });
-  }
-};
+  sendResponse(res, {
+    statusCode: StatusCodes.OK,
+    success: true,
+    message: 'Product  deleted successfully',
+    data: result,
+  });
+});
 
 export const productController = {
   createProduct,
