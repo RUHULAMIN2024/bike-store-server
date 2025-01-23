@@ -1,20 +1,19 @@
 import express, { Application, Request, Response } from 'express';
 import cors from 'cors';
-
-import productRouter from './module/product/product.route';
-import orderRouter from './module/order/order.route';
+import cookieParser from 'cookie-parser';
 import globalErrorHandler from './middlewares/globalErrorhandler';
 import notFound from './middlewares/notFound';
+import router from './routes';
 const app: Application = express();
 
+//parsers
 app.use(express.json());
-app.use('/api/products', productRouter);
-app.use('/api/orders', orderRouter);
+app.use(cookieParser());
+
 app.use(cors());
 
-export interface CustomError extends Error {
-  status?: number;
-}
+// application routes
+app.use('/api/v1', router);
 
 app.get('/', (req: Request, res: Response) => {
   res.send('Hello World!');

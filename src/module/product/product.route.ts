@@ -6,13 +6,13 @@ import { productValidationSchema } from './product.validation';
 const productRouter = Router();
 
 productRouter.get('/:productId', productController.getSingleProduct);
-productRouter.get('/', productController.getProducts);
+productRouter.delete('/:id', productController.deleteProduct);
+productRouter.put('/:productId', productController.updateProduct);
+productRouter.get('/', productController.getAllProducts);
 productRouter.post(
   '/',
   validateRequest(productValidationSchema),
   productController.createProduct,
 );
-productRouter.put('/:productId', productController.updateProduct);
-productRouter.delete('/:id', productController.deleteProduct);
 
 export default productRouter;

@@ -4,8 +4,8 @@ import sendResponse from '../../utils/sendResponse';
 import { productService } from './product.service';
 
 const createProduct = catchAsync(async (req, res) => {
-  const data = req.body;
-  const result = await productService.createProduct(data);
+  const productData = req.body;
+  const result = await productService.createProduct(productData);
 
   sendResponse(res, {
     statusCode: StatusCodes.CREATED,
@@ -15,33 +15,33 @@ const createProduct = catchAsync(async (req, res) => {
   });
 });
 
-const getProducts = catchAsync(async (req, res) => {
-  const result = await productService.getProducts();
+const getAllProducts = catchAsync(async (req, res) => {
+  const result = await productService.getAllProducts();
 
   sendResponse(res, {
     statusCode: StatusCodes.OK,
     success: true,
-    message: 'Product  retrived successfully',
+    message: 'Product  retrieved successfully',
     data: result,
   });
 });
 
 const getSingleProduct = catchAsync(async (req, res) => {
-  const id = req.params.ProductId;
-  const result = await productService.getSingleProduct(id);
+  const productId = req.params.ProductId;
+  const result = await productService.getSingleProduct(productId);
 
   sendResponse(res, {
     statusCode: StatusCodes.OK,
     success: true,
-    message: 'Product  retrived successfully',
+    message: 'Product  retrieved successfully',
     data: result,
   });
 });
 
 const updateProduct = catchAsync(async (req, res) => {
-  const id = req.params.ProductId;
+  const productId = req.params.ProductId;
   const body = req.body;
-  const result = await productService.updateProduct(id, body);
+  const result = await productService.updateProduct(productId, body);
 
   sendResponse(res, {
     statusCode: StatusCodes.OK,
@@ -52,8 +52,8 @@ const updateProduct = catchAsync(async (req, res) => {
 });
 
 const deleteProduct = catchAsync(async (req, res) => {
-  const id = req.params.id;
-  const result = await productService.deleteProduct(id);
+  const productId = req.params.id;
+  const result = await productService.deleteProduct(productId);
 
   sendResponse(res, {
     statusCode: StatusCodes.OK,
@@ -65,7 +65,7 @@ const deleteProduct = catchAsync(async (req, res) => {
 
 export const productController = {
   createProduct,
-  getProducts,
+  getAllProducts,
   getSingleProduct,
   updateProduct,
   deleteProduct,

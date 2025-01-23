@@ -1,13 +1,13 @@
 import { IProduct } from './product.interface';
 import Product from './product.model';
 
-const createProduct = async (data: IProduct) => {
-  const result = await Product.create(data);
+const createProduct = async (payload: IProduct) => {
+  const result = await Product.create(payload);
   return result;
 };
 
-const getProducts = async (filter: object = {}) => {
-  const result = await Product.find(filter);
+const getAllProducts = async () => {
+  const result = await Product.find();
   return result;
 };
 
@@ -28,7 +28,7 @@ const deleteProduct = async (id: string) => {
 
 export const productService = {
   createProduct,
-  getProducts,
+  getAllProducts,
   getSingleProduct,
   updateProduct,
   deleteProduct,
