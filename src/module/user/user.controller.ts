@@ -1,36 +1,28 @@
-import { StatusCodes } from 'http-status-codes';
+import { Request, Response } from 'express';
 import catchAsync from '../../utils/catchAsync';
 import sendResponse from '../../utils/sendResponse';
 import { UserService } from './user.service';
-import config from '../../config';
+import httpStatus from 'http-status';
 
-const registerUser = catchAsync(async (req, res) => {
-  const result = await UserService.registerUser(req.body);
-
+const registerUser = catchAsync(async (req: Request, res: Response) => {
+  const data = await UserService.registerUser(req.body);
   sendResponse(res, {
-    statusCode: StatusCodes.CREATED,
+    statusCode: httpStatus.CREATED,
     success: true,
-    message: 'User registered successfully',
-    data: result,
+
+    message: 'Registered successfully',
+    data,
   });
 });
 
-const loginUser = catchAsync(async (req, res) => {
-  const result = await UserService.loginUser(req.body);
-  const { token } = result;
-
-  res.cookie('token', token, {
-    secure: config.node_env === 'production',
-    httpOnly: true,
-  });
-
+const loginUser = catchAsync(async (req: Request, res: Response) => {
+  const data = await UserService.loginUser(req.body);
   sendResponse(res, {
-    statusCode: StatusCodes.OK,
+    statusCode: httpStatus.ACCEPTED,
     success: true,
-    message: 'User is logged in succesfully!',
-    data: {
-      token,
-    },
+
+    message: 'Logged in successfully',
+    data,
   });
 });
 

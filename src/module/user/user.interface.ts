@@ -1,12 +1,11 @@
-/* eslint-disable @typescript-eslint/no-empty-object-type */
-/* eslint-disable no-unused-vars */
-import { Document, Model } from 'mongoose';
+import { Document, Model } from "mongoose";
+import { UserRole } from "./user.constants";
 
 export interface IUser extends Document {
   name: string;
   email: string;
   password: string;
-  role: 'user' | 'admin';
+  role: UserRole;
   phone?: string;
   address?: string;
   city?: string;

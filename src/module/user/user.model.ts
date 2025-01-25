@@ -3,7 +3,7 @@ import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import TUserModel, { IUser, IUserMethods } from './user.interface';
 import config from '../../config';
-import { USER_ROLE } from './user.constant';
+import { UserRole } from './user.constants';
 
 const UserSchema = new Schema<IUser, TUserModel, IUserMethods>(
   {
@@ -18,8 +18,8 @@ const UserSchema = new Schema<IUser, TUserModel, IUserMethods>(
     password: { type: String, required: true, select: false },
     role: {
       type: String,
-      enum: Object.values(USER_ROLE),
-      default: USER_ROLE.user,
+      enum: Object.values(UserRole),
+      default: UserRole.customer,
     },
     phone: { type: String, default: 'N/A' },
     address: { type: String, default: 'N/A' },
