@@ -64,6 +64,10 @@ const getOrders = async () => {
   const data = await Order.find();
   return data;
 };
+const getMyOrder = async (userId: string) => {
+  const data = await Order.find({ user: userId });
+  return data;
+};
 
 const verifyPayment = async (order_id: string) => {
   const verifiedPayment = await orderUtils.verifyPaymentAsync(order_id);
@@ -95,8 +99,22 @@ const verifyPayment = async (order_id: string) => {
   return verifiedPayment;
 };
 
+const deleteOrder = async (id: string) => {
+  console.log(id);
+  const result = await Order.findByIdAndDelete(id);
+  return result;
+};
+
+const updateOrderStatus = async (id: string, data: { status: string }) => {
+  const result = await Order.findByIdAndUpdate(id, data);
+  return result;
+};
+
 export const orderService = {
   createOrder,
   getOrders,
   verifyPayment,
+  getMyOrder,
+  deleteOrder,
+  updateOrderStatus,
 };

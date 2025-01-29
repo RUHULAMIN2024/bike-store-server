@@ -18,28 +18,28 @@ const productSchema = new Schema<IProduct>(
       required: [true, 'price is required'],
       min: 0,
     },
+    model: {
+      type: String,
+      required: [true, 'Model is required'],
+      trim: true,
+    },
     category: {
       type: String,
       required: [true, 'category is required'],
-      enum: {
-        values: ['Mountain', 'Road', 'Hybrid', 'Electric'],
-        message: '{VALUE} is not a valid',
-      },
     },
     description: {
       type: String,
       required: [true, 'description is required'],
       trim: true,
     },
-    quantity: {
+    stock: {
       type: Number,
       required: [true, 'quantity is required'],
       min: 0,
     },
-    inStock: {
-      type: Boolean,
-      required: true,
-      default: true,
+    image: {
+      type: String,
+      default: '',
     },
   },
   { timestamps: true },

@@ -6,7 +6,7 @@ import { productService } from './product.service';
 const createProduct = catchAsync(async (req, res) => {
   const productData = req.body;
   const result = await productService.createProduct(productData);
-
+  console.log(productData);
   sendResponse(res, {
     statusCode: StatusCodes.CREATED,
     success: true,
@@ -16,7 +16,7 @@ const createProduct = catchAsync(async (req, res) => {
 });
 
 const getAllProducts = catchAsync(async (req, res) => {
-  const result = await productService.getAllProducts();
+  const result = await productService.getAllProducts(req.query);
 
   sendResponse(res, {
     statusCode: StatusCodes.OK,
@@ -27,7 +27,7 @@ const getAllProducts = catchAsync(async (req, res) => {
 });
 
 const getSingleProduct = catchAsync(async (req, res) => {
-  const productId = req.params.ProductId;
+  const productId = req.params.productId;
   const result = await productService.getSingleProduct(productId);
 
   sendResponse(res, {
@@ -39,7 +39,7 @@ const getSingleProduct = catchAsync(async (req, res) => {
 });
 
 const updateProduct = catchAsync(async (req, res) => {
-  const productId = req.params.ProductId;
+  const productId = req.params.productId;
   const body = req.body;
   const result = await productService.updateProduct(productId, body);
 

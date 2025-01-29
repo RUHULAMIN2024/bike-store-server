@@ -1,3 +1,5 @@
+import QueryBuilder from '../../builder/QueryBuilder';
+import { CourseSearchableFields } from './product.constant';
 import { IProduct } from './product.interface';
 import Product from './product.model';
 
@@ -6,9 +8,21 @@ const createProduct = async (payload: IProduct) => {
   return result;
 };
 
-const getAllProducts = async () => {
-  const result = await Product.find();
-  return result;
+const getAllProducts = async (query: Record<string, unknown>) => {
+  const courseQuery = new QueryBuilder(Product.find(), query)
+    .search(CourseSearchableFields)
+    .filter()
+    .sort()
+    .paginate()
+    .fields();
+
+  const result = await courseQuery.modelQuery;
+  const meta = await courseQuery.countTotal();
+
+  return {
+    meta,
+    result,
+  };
 };
 
 const getSingleProduct = async (id: string) => {
